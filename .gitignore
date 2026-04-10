@@ -1,8 +1,8 @@
 .env
 names.txt
 output.txt
-logs/
 phones.txt
+logs/
 results/
 temp/
 *.log
