@@ -53,5 +53,5 @@ def convert_to_csv(names_file, phones_file, output_file):
 if __name__ == "__main__":
     names_file = os.getenv("NAMES_FILE")  # Change this to the path of your names file
     phones_file = os.getenv("PHONES_FILE")  # Change this to the path of your phone numbers file
-    output_file = os.getenv("OUTPUT_FILE")  # Change this to the desired output CSV file name
+    output_file = "output.csv"  # Change this to the desired output CSV file name
     convert_to_csv(names_file, phones_file, output_file)
