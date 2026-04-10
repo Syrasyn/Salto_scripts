@@ -1,4 +1,5 @@
 ### This code intends to streamline the process of data sanitization and formatting for Salto CSV synchronization jobs ###
+### Works for sure when running through VSCode terminal ###
 
 convert_to_csv.py:
 
