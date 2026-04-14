@@ -3,7 +3,7 @@
 # Reserve blank lines and lines that do not contain 10 digits in the phone number file.
 # The csv format will be: extID,KeyAudit,KeyExp.Unit,KeyExp.Period,MobileAppType,LastName,FirstName,PhoneNumber,UserExp.
 # The extID will be a randomly generated 8 digit number, KeyAudit will be 1, KeyExp.Unit will be 0, KeyExp.Period will be 7, MobileAppType will be 2, UserExp will be a comma.. The LastName and FirstName will be extracted from the names file, and the PhoneNumber will be extracted from the phone numbers file and formatted to +1XXXXXXXXXX. If the phone number cannot be formatted, it will be left as is in the CSV file.
-# 
+
 
 import os
 import csv
@@ -44,7 +44,7 @@ def convert_to_csv(names_file, phones_file, output_file):
             if len(digits) == 10:
                 formatted_phone = f"+1{digits}"
             else:
-                print(f"Could not format phone number: {phone_line} (does not contain 10 digits)")
+                print(f"Could not format phone number for {name_line.strip()}: {phone_line} (INVALID PHONE NUMBER)")
                 formatted_phone = phone_line  # Preserve unformatted phone numbers
             
             ext_id = random.randint(10000000, 99999999)

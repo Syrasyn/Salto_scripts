@@ -1,6 +1,7 @@
 .env
 names.txt
 output.txt
+output.csv
 phones.txt
 logs/
 results/
