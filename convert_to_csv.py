@@ -4,7 +4,6 @@
 # The csv format will be: extID,KeyAudit,KeyExp.Unit,KeyExp.Period,MobileAppType,LastName,FirstName,PhoneNumber,UserExp.
 # The extID will be a randomly generated 8 digit number, KeyAudit will be 1, KeyExp.Unit will be 0, KeyExp.Period will be 7, MobileAppType will be 2, UserExp will be a comma.. The LastName and FirstName will be extracted from the names file, and the PhoneNumber will be extracted from the phone numbers file and formatted to +1XXXXXXXXXX. If the phone number cannot be formatted, it will be left as is in the CSV file.
 
-
 import os
 import csv
 import random
@@ -17,6 +16,16 @@ def convert_to_csv(names_file, phones_file, output_file):
     with open(names_file, 'r') as names, open(phones_file, 'r') as phones, open(output_file, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(["extID", "KeyAudit", "KeyExp.Unit", "KeyExp.Period", "MobileAppType", "LastName", "FirstName", "PhoneNumber", "UserExp"])
+        
+        # Bit selections for main format
+
+        # TLA input
+        tla_input = input("Enter the TLA for the extID (e.g. CDV, OGR, SBB): ")
+        tla = tla_input.upper()
+        if len(tla) != 3 or not tla.isalpha():
+            print("Invalid TLA input. Please enter a 3-letter TLA.")
+            return
+
         
         for name_line, phone_line in zip(names, phones):
             name_line = name_line.strip()
@@ -43,12 +52,19 @@ def convert_to_csv(names_file, phones_file, output_file):
             
             if len(digits) == 10:
                 formatted_phone = f"+1{digits}"
+                mobileAppType = 2  # Set MobileAppType to 2 for valid phone numbers
+                userExpPeriod = 7  # Set UserExp to 7 for valid phone numbers
+            elif len(digits) == 0:
+                print(f"No phone number provided for {name_line.strip()}. Standard key-fob user...")
+                mobileAppType = 0  # Set MobileAppType to 0 for blank phone numbers
+                formatted_phone = " "  # Preserve blank phone numbers
+                userExpPeriod = 30  # Expires in 30 days for standard users
             else:
                 print(f"Could not format phone number for {name_line.strip()}: {phone_line} (INVALID PHONE NUMBER)")
                 formatted_phone = phone_line  # Preserve unformatted phone numbers
             
-            ext_id = random.randint(10000000, 99999999)
-            csv_writer.writerow([ext_id, 1, 0, 7, 2, last_name, first_name, formatted_phone, " ", ""])
+            ext_id = random.randint(1000, 9999)
+            csv_writer.writerow([(tla + str(ext_id)), 1, 0, userExpPeriod, mobileAppType, last_name, first_name, formatted_phone, " ", ""])
 
 if __name__ == "__main__":
     names_file = os.getenv("NAMES_FILE")  # Change this to the path of your names file
