@@ -1,5 +1,7 @@
-# This script will format a textfile conataining a list of phone numbers to +1XXXXXXXXXX and return the formatted list in a variable. It will also print out any phone numbers that could not be formatted due to not containing 10 digits.
+# This script will format a textfile conataining a list of phone numbers to +1XXXXXXXXXX and return the formatted list in a variable.
+# It will also print out any phone numbers that could not be formatted due to not containing 10 digits.
 # It will reserve blank lines and lines that do not contain 10 digits.
+
 import re
 
 def format_phone_numbers(file_path):
